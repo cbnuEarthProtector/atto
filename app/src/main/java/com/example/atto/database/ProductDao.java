@@ -8,14 +8,15 @@ import java.util.List;
 
 @Dao
 public interface ProductDao {
+
     @Query("select Product.id,\n" +
             "       Product.name,\n" +
             "       Product.category,\n" +
-            "       Product.price,\n" +
-            "       Product.site_url,\n" +
-            "       Product.photo_url,\n" +
             "       Brand.name as brandName,\n" +
-            "       Product.is_bookmarked,\n" +
+            "       Product.price,\n" +
+            "       Product.site_url as siteURL,\n" +
+            "       Product.photo_url as photoURL,\n" +
+            "       Product.is_bookmarked as isBookmarked,\n" +
             "       Product.memo\n" +
             "from Product,\n" +
             "     Brand\n" +
@@ -25,11 +26,11 @@ public interface ProductDao {
     @Query("select product.id,\n" +
             "       product.name,\n" +
             "       product.category,\n" +
-            "       product.price,\n" +
-            "       product.site_url,\n" +
-            "       product.photo_url,\n" +
             "       brand.name as brandName,\n" +
-            "       product.is_bookmarked,\n" +
+            "       product.price,\n" +
+            "       Product.site_url as siteURL,\n" +
+            "       Product.photo_url as photoURL,\n" +
+            "       Product.is_bookmarked as isBookmarked,\n" +
             "       product.memo\n" +
             "from product,\n" +
             "     brand\n" +
@@ -37,14 +38,15 @@ public interface ProductDao {
             "  and brand.id = :brandId;")
     List<ProductWithBrandName> findAllByBrandId(Integer brandId);
 
+
     @Query("select product.id,\n" +
             "       product.name,\n" +
             "       product.category,\n" +
-            "       product.price,\n" +
-            "       product.site_url,\n" +
-            "       product.photo_url,\n" +
             "       brand.name as brandName,\n" +
-            "       product.is_bookmarked,\n" +
+            "       product.price,\n" +
+            "       Product.site_url as siteURL,\n" +
+            "       Product.photo_url as photoURL,\n" +
+            "       Product.is_bookmarked as isBookmarked,\n" +
             "       product.memo\n" +
             "from product,\n" +
             "     brand\n" +
@@ -55,11 +57,11 @@ public interface ProductDao {
     @Query("select product.id,\n" +
             "       product.name,\n" +
             "       product.category,\n" +
-            "       product.price,\n" +
-            "       product.site_url,\n" +
-            "       product.photo_url,\n" +
             "       brand.name as brandName,\n" +
-            "       product.is_bookmarked,\n" +
+            "       product.price,\n" +
+            "       Product.site_url as siteURL,\n" +
+            "       Product.photo_url as photoURL,\n" +
+            "       Product.is_bookmarked as isBookmarked,\n" +
             "       product.memo\n" +
             "from product,\n" +
             "     brand\n" +
