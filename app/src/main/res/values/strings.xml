@@ -4,4 +4,17 @@
     <string name="마켓">마켓</string>
     <string name="음식점">음식점</string>
     <string name="my스크랩">my 스크랩</string>
+
+    <string-array name="category">
+        <item>kitchen</item>
+        <item>cosmetic</item>
+        <item>bath</item>
+        <item>laundry</item>
+    </string-array>
+    <string-array name="categoryKOR">
+    <item>주방용품</item>
+    <item>화장용품</item>
+    <item>욕실용품</item>
+    <item>세탁용품</item>
+</string-array>
 </resources>
