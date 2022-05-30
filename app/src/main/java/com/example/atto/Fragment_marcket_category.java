@@ -161,18 +161,17 @@ public class Fragment_marcket_category extends Fragment {
             button.setLayoutParams(params);
 
             String category = categories[i];
+            final int categoryIndex = i;
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(prevChooseBtn != null) prevChooseBtn.setBackgroundResource(R.drawable.roundbutton);
+                    spinner.setSelection(categoryIndex);
                     button.setBackgroundResource(R.drawable.selected_roundbutton);
                     prevChooseBtn = button;
                     printAllProductByCategory(fv, category);
                 }
-
-
             });
-
             chooseCategoryButtons.addView(button);
         }
 
