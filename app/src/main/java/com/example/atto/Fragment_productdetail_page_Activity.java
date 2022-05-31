@@ -47,12 +47,9 @@ public class Fragment_productdetail_page_Activity extends Fragment {
         productList = productDao.getAll(); ////
         scrapBtn = fv.findViewById(R.id.scrapBtn);
 
-        // Fragment에서는 Activity를 호출하지 못하므로 부모 Activity를 이용하여 호출
-        Intent intent = new Intent(getActivity(), Fragment_marcket_page_Activity.class);
-        // int productId = intent.getIntExtra("id", 0);
+        int productId = getArguments().getInt("id");
 
-        int productId = 0;
-        //Glide.with(getActivity()).load(productList.get(0).photoURL).into(productImage);
+        Glide.with(getActivity()).load(productList.get(productId - 1).photoURL).into(productImage);
         // 이미지를 url로 설정: https://lakue.tistory.com/35
 
         scrapBtn.setOnClickListener(new View.OnClickListener() {

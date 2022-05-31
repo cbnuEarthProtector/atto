@@ -18,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
@@ -103,6 +104,23 @@ public class Fragment_marcket_page_Activity extends Fragment {
             params.setMargins(50,10,30,20);  //마진 수정
             linearLayout.setLayoutParams(params);
             linearLayout.setOrientation(LinearLayout.VERTICAL);
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", productWithBrandName.id);
+
+                    FragmentManager fragmentManager = getParentFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    Fragment_productdetail_page_Activity fragment_productdetail_page_activity
+                            = new Fragment_productdetail_page_Activity();
+                    fragment_productdetail_page_activity.setArguments(bundle);
+                    fragmentTransaction.addToBackStack("xyz"); // ?
+                    fragmentTransaction.hide(Fragment_marcket_page_Activity.this);
+                    fragmentTransaction.add(android.R.id.content, fragment_productdetail_page_activity);
+                    fragmentTransaction.commit();
+                }
+            });
 
             //상품 사진
             ImageView imageView= new ImageView(getActivity().getApplicationContext());
