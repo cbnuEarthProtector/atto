@@ -22,4 +22,7 @@ public interface BrandDao {
             "set is_bookmarked = 0 \n" +
             "where id = :brandId;")
     void deleteBookmark(Integer brandId);
+
+    @Query("select * from Brand where name = :brandName")
+    int findByString(String brandName);
 }

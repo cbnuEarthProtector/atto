@@ -9,11 +9,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView style="?android:textAppearanceMedium"
-            android:padding="16dp"
-            android:lineSpacingMultiplier="1.2"
+        <LinearLayout
+            android:id="@+id/lineartable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="브랜드 화면" />
+            android:orientation="vertical"
+            android:layout_marginLeft="15px" />
     </ScrollView>
 </FrameLayout>
