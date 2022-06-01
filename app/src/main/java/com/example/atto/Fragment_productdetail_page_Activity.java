@@ -3,6 +3,7 @@ package com.example.atto;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -29,7 +30,9 @@ import java.util.List;
 
 public class Fragment_productdetail_page_Activity extends Fragment {
     ImageView productImage;
-    Button scrapBtn;
+    ImageButton scrapBtn;
+    Button productPageBtn;
+    TextView scrapBtnText;
 
     private List<ProductWithBrandName> productList;
 
@@ -46,17 +49,35 @@ public class Fragment_productdetail_page_Activity extends Fragment {
         ProductDao productDao = appDatabase.productDao();
         productList = productDao.getAll(); ////
         scrapBtn = fv.findViewById(R.id.scrapBtn);
+        scrapBtnText = fv.findViewById(R.id.scrapBtnText);
+        productPageBtn = fv.findViewById(R.id.productPageBtn);
 
         int productId = getArguments().getInt("id");
-
         Glide.with(getActivity()).load(productList.get(productId - 1).photoURL).into(productImage);
-        // 이미지를 url로 설정: https://lakue.tistory.com/35
 
         scrapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), MypageScrapActivity.class);
                 //intent.putExtra() // 스크랩 페이지로 전달해줄 값 설정
+                startActivity(intent);
+            }
+        });
+
+        scrapBtnText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MypageScrapActivity.class);
+                //intent.putExtra() // 스크랩 페이지로 전달해줄 값 설정
+                startActivity(intent);
+            }
+        });
+
+
+        productPageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(productList.get(productId - 1).siteURL));
                 startActivity(intent);
             }
         });
