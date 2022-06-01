@@ -38,6 +38,22 @@ public interface ProductDao {
             "  and brand.id = :brandId;")
     List<ProductWithBrandName> findAllByBrandId(Integer brandId);
 
+    @Query("select product.id,\n" +
+            "       product.name,\n" +
+            "       product.category,\n" +
+            "       brand.name as brandName,\n" +
+            "       product.price,\n" +
+            "       Product.site_url as siteURL,\n" +
+            "       Product.photo_url as photoURL,\n" +
+            "       Product.is_bookmarked as isBookmarked,\n" +
+            "       product.memo\n" +
+            "from product,\n" +
+            "     brand\n" +
+            "where product.brand_id = brand.id\n" +
+            "  and brand.id = :brandId\n" +
+            "  and product.category = :category;")
+    List<ProductWithBrandName> findAllByBrandIdAndCategory(Integer brandId, String category);
+
 
     @Query("select product.id,\n" +
             "       product.name,\n" +

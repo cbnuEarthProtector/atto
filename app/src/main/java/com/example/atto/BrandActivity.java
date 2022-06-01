@@ -1,10 +1,11 @@
 package com.example.atto;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -13,16 +14,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.atto.database.AppDatabase;
+import com.example.atto.database.Brand;
+import com.example.atto.database.BrandDao;
 import com.example.atto.database.ProductDao;
 import com.example.atto.database.ProductWithBrandName;
 
@@ -30,52 +27,50 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
-public class Fragment_marcket_category extends Fragment {
+public class BrandActivity extends AppCompatActivity {
+
+    private static int brandId;
 
     private LinearLayout lineartable;
 
     static Button prevChooseBtn = null;
 
-    public Fragment_marcket_category() {
-
-    }
-
-    public void printAllProductByCategory(View fv, String category) {
-        AppDatabase appDatabase = AppDatabase.getInstance(getActivity().getApplicationContext());
+    public void printAllProductByBrandIdAndCategory(String category) {
+        AppDatabase appDatabase = AppDatabase.getInstance(this);
         ProductDao productDao = appDatabase.productDao();
 
         List<ProductWithBrandName> productWithBrandNameList;
-        if (category.equals("all")) productWithBrandNameList = productDao.getAll();
-        else productWithBrandNameList = productDao.findAllByCategory(category);
+        if (category.equals("all")) productWithBrandNameList = productDao.findAllByBrandId(brandId);
+        else productWithBrandNameList = productDao.findAllByBrandIdAndCategory(brandId, category);
 
-        printProductToView(fv, productWithBrandNameList);
+        printProductToView(productWithBrandNameList);
     }
 
-    public void printProductToView(View fv, List<ProductWithBrandName> productWithBrandNameList) {
-        TextView numOfProduct = fv.findViewById(R.id.numOfProduct);
+    public void printProductToView(List<ProductWithBrandName> productWithBrandNameList) {
+        TextView numOfProduct = findViewById(R.id.numOfProduct);
         numOfProduct.setText(Integer.toString(productWithBrandNameList.size()));
 
         //카테고리별 상품 출력
-        lineartable = (LinearLayout) fv.findViewById(R.id.lineartable);
+        lineartable = (LinearLayout) findViewById(R.id.lineartable);
 
         lineartable.removeAllViews();
-        LinearLayout horlinear = new LinearLayout(getActivity().getApplicationContext());
+        LinearLayout horlinear = new LinearLayout(this);
         for (ProductWithBrandName productWithBrandName : productWithBrandNameList) {
             //상품 정보 vertical layout으로 출력
-            LinearLayout linearLayout = new LinearLayout(getActivity().getApplicationContext());
+            LinearLayout linearLayout = new LinearLayout(this);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             params.setMargins(50, 10, 30, 20);
             linearLayout.setLayoutParams(params);
             linearLayout.setOrientation(LinearLayout.VERTICAL);
 
             //상품 사진
-            ImageView imageView = new ImageView(getActivity().getApplicationContext());
+            ImageView imageView = new ImageView(this);
             String image_url = productWithBrandName.photoURL;
             Glide.with(this).load(image_url).into(imageView);
             linearLayout.addView(imageView);
 
             //상품 카테고리
-            TextView textView = new TextView(getActivity().getApplicationContext());
+            TextView textView = new TextView(this);
             textView.setText("[" + productWithBrandName.category + "]");
             textView.setGravity(Gravity.LEFT);
             textView.setTextSize(14);
@@ -83,7 +78,7 @@ public class Fragment_marcket_category extends Fragment {
             linearLayout.addView(textView);
 
             //상품 정보
-            TextView textView2 = new TextView(getActivity().getApplicationContext());
+            TextView textView2 = new TextView(this);
             textView2.setText(productWithBrandName.name);  //이름
             textView2.setGravity(Gravity.LEFT);
             textView2.setMaxLines(2);  //두 줄 출력
@@ -93,7 +88,7 @@ public class Fragment_marcket_category extends Fragment {
             textView2.setPadding(30, 0, 0, 0);  //패딩
             linearLayout.addView(textView2);
 
-            TextView textView3 = new TextView(getActivity().getApplicationContext());
+            TextView textView3 = new TextView(this);
             if (productWithBrandName.price == -1) textView3.setText("품절");
             else {  //가격 출력
                 int thwon = productWithBrandName.price / 1000;
@@ -111,7 +106,7 @@ public class Fragment_marcket_category extends Fragment {
 
             //한 줄에 상품 세 개씩 출력
             if (productWithBrandName.id % 2 == 0) {
-                horlinear = new LinearLayout(getActivity().getApplicationContext());
+                horlinear = new LinearLayout(this);
                 lineartable.addView(horlinear);
 
                 horlinear.addView(linearLayout);
@@ -121,16 +116,22 @@ public class Fragment_marcket_category extends Fragment {
         }
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View fv = inflater.inflate(R.layout.fragment_marcket_category, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_brand);
+        brandId = getIntent().getIntExtra("brandId", 0);
+
+        AppDatabase appDatabase = AppDatabase.getInstance(this);
+        BrandDao brandDao = appDatabase.brandDao();
+        TextView brandName = findViewById(R.id.brandName);
+        brandName.setText(brandDao.findById(brandId).name);
 
         Resources res = getResources();
         String[] categories = res.getStringArray(R.array.category);
 
-        Spinner spinner = (Spinner) fv.findViewById(R.id.categorySpinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
+        Spinner spinner = (Spinner) findViewById(R.id.categorySpinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.categoryKOR, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -138,18 +139,18 @@ public class Fragment_marcket_category extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                printAllProductByCategory(fv, categories[i]);
+                printAllProductByBrandIdAndCategory(categories[i]);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                printAllProductByCategory(fv, "all");
+                printAllProductByBrandIdAndCategory("all");
             }
         });
 
-        LinearLayout chooseCategoryButtons = fv.findViewById(R.id.chooseCategoryButtons);
+        LinearLayout chooseCategoryButtons = findViewById(R.id.chooseCategoryButtons);
         for (int i = 0; i < categories.length; i++) {
-            Button button = new Button(getActivity().getApplicationContext());
+            Button button = new Button(this);
             button.setBackgroundResource(R.drawable.roundbutton);
             button.setText(res.getStringArray(R.array.categoryKOR)[i]);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -169,12 +170,10 @@ public class Fragment_marcket_category extends Fragment {
                     spinner.setSelection(categoryIndex);
                     button.setBackgroundResource(R.drawable.selected_roundbutton);
                     prevChooseBtn = button;
-                    printAllProductByCategory(fv, category);
+                    printAllProductByBrandIdAndCategory(category);
                 }
             });
             chooseCategoryButtons.addView(button);
         }
-
-        return fv;
     }
 }

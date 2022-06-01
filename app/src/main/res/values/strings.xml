@@ -12,9 +12,9 @@
         <item>laundry</item>
     </string-array>
     <string-array name="categoryKOR">
-    <item>주방용품</item>
-    <item>화장용품</item>
-    <item>욕실용품</item>
-    <item>세탁용품</item>
-</string-array>
+        <item>주방용품</item>
+        <item>화장용품</item>
+        <item>욕실용품</item>
+        <item>세탁용품</item>
+    </string-array>
 </resources>

@@ -1,12 +1,12 @@
 package com.example.atto;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,12 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.bumptech.glide.Glide;
 import com.example.atto.database.AppDatabase;
 import com.example.atto.database.Brand;
 import com.example.atto.database.BrandDao;
 import com.example.atto.database.ProductDao;
-import com.example.atto.database.ProductWithBrandName;
 
 import java.util.List;
 
@@ -47,39 +45,33 @@ public class Fragment_marcket_brand extends Fragment {
 
         lineartable.removeAllViews();
 
-        LinearLayout horlinear = new LinearLayout(getActivity().getApplicationContext());
         for (Brand brand : brandList) {
-            //브랜드 별 정보 vertical layout으로 출력
-            LinearLayout linearLayout = new LinearLayout(getActivity().getApplicationContext());
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(50, 10, 30, 20);
-            linearLayout.setLayoutParams(params);
-            linearLayout.setOrientation(LinearLayout.VERTICAL);
 
-            //브랜드 사진
-            ImageView imageView = new ImageView(getActivity().getApplicationContext());
-            String image_url = brand.photoURL;
-            System.out.println("image_url = " + image_url);
-            Glide.with(this).load(image_url).into(imageView);
-            linearLayout.addView(imageView);
+            //브랜드 출력
+            TextView btn = new TextView(getActivity().getApplicationContext(), null, android.R.attr.textAppearanceMedium);
+            btn.setBackgroundColor(Color.LTGRAY);
+            btn.setText("[" + brand.name + "]");
+            btn.setGravity(Gravity.CENTER);
+            btn.setTextSize(14);
+            btn.setPadding(16, 16, 16, 16);  //패딩
 
-            //브랜드 명 출력
-            TextView textView = new TextView(getActivity().getApplicationContext());
-            textView.setText("[" + brand.name + "]");
-            textView.setGravity(Gravity.CENTER);
-            textView.setTextSize(14);
-            textView.setPadding(30, 20, 0, 0);  //패딩
-            linearLayout.addView(textView);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            params.setMargins(15, 15, 15, 0);
+            btn.setLayoutParams(params);
 
-            //한 줄에 브랜드 세 개씩 출력
-            if (brand.id % 2 == 0) {
-                horlinear = new LinearLayout(getActivity().getApplicationContext());
-                lineartable.addView(horlinear);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), BrandActivity.class);
+                    intent.putExtra("brandId", brand.id);
+                    startActivity(intent);
+                }
+            });
 
-                horlinear.addView(linearLayout);
-            } else {
-                horlinear.addView(linearLayout);
-            }
+            lineartable.addView(btn);
         }
     }
 
@@ -88,6 +80,7 @@ public class Fragment_marcket_brand extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fv = inflater.inflate(R.layout.fragment_marcket_brand, container, false);
         printAllCategory(fv);
+
         return fv;
     }
 }
