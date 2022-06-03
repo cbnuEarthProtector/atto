@@ -32,6 +32,12 @@ public class HomeActivity extends AppCompatActivity {
         marcketbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                for(Fragment fragment : getSupportFragmentManager().getFragments()) {
+                    if(fragment instanceof Fragment_marcket_page_Activity && fragment.isVisible())
+                        return;
+                    if(fragment.isVisible())
+                        getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                }
                 FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
                 Fragment_marcket_page_Activity marcketFragment = new Fragment_marcket_page_Activity();
                 transaction.replace(R.id.frame, marcketFragment);
@@ -43,6 +49,12 @@ public class HomeActivity extends AppCompatActivity {
         restaurantbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                for(Fragment fragment : getSupportFragmentManager().getFragments()) {
+                    if(fragment instanceof Fragment_restaurant_page_Activity && fragment.isVisible())
+                        return;
+                    if(fragment.isVisible())
+                        getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                }
                 FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
                 Fragment_restaurant_page_Activity restaurantFragment = new Fragment_restaurant_page_Activity();
                 transaction.replace(R.id.frame, restaurantFragment);
@@ -54,6 +66,12 @@ public class HomeActivity extends AppCompatActivity {
         scrapbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                for(Fragment fragment : getSupportFragmentManager().getFragments()) {
+                    if(fragment instanceof Fragment_myscrap_page_Activity && fragment.isVisible())
+                        return;
+                    if(fragment.isVisible())
+                        getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                }
                 FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
                 Fragment_myscrap_page_Activity myscrapFragment = new Fragment_myscrap_page_Activity();
                 transaction.replace(R.id.frame, myscrapFragment);
