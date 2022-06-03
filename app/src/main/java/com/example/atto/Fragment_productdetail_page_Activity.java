@@ -26,12 +26,14 @@ import com.example.atto.database.ProductWithBrandName;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 
 public class Fragment_productdetail_page_Activity extends Fragment {
     ImageView productImage;
     ImageButton scrapBtn;
     Button productPageBtn;
+    TextView brandField, productNameField, priceField;
 
     private List<ProductWithBrandName> productList;
 
@@ -46,13 +48,26 @@ public class Fragment_productdetail_page_Activity extends Fragment {
         productImage = fv.findViewById(R.id.productImageView);
         AppDatabase appDatabase = AppDatabase.getInstance(getActivity().getApplicationContext());
         ProductDao productDao = appDatabase.productDao();
-        productList = productDao.getAll(); ////
+        productList = productDao.getAll();
         scrapBtn = fv.findViewById(R.id.scrapBtn);
         productPageBtn = fv.findViewById(R.id.productPageBtn);
+        brandField = fv.findViewById(R.id.brandField);
+        productNameField = fv.findViewById(R.id.productNameField);
+        priceField = fv.findViewById(R.id.priceField);
 
         int productId = getArguments().getInt("id");
-        Glide.with(getActivity()).load(productList.get(productId - 1).photoURL).into(productImage);
+        ProductWithBrandName matchingProduct = productList.get(productId - 1); // 배열 인덱스로 상품 찾기
+        if(productId != matchingProduct.id) { // 배열 인덱스로 찾았을 때 id 값이 일치하지 않을 때
+            for (ProductWithBrandName product : productList) {
+                if (product.id == productId) matchingProduct = product; // Fragment_market_page_Activity에서 전달받은 id 값과 일치하는 상품 찾기
+            }
+        }
+        Glide.with(getActivity()).load(matchingProduct.photoURL).into(productImage);
+        brandField.setText(matchingProduct.brandName); // 브랜드명
+        productNameField.setText(matchingProduct.name); // 상품명
+        priceField.setText(Integer.toString(matchingProduct.price) + "원"); // 가격
 
+        // 스크랩 버튼 페이지로 연결
         scrapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,6 +77,7 @@ public class Fragment_productdetail_page_Activity extends Fragment {
             }
         });
 
+        // 상품 페이지로 연결
         productPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
