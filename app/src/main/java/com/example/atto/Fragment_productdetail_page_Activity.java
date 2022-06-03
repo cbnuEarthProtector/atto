@@ -32,7 +32,6 @@ public class Fragment_productdetail_page_Activity extends Fragment {
     ImageView productImage;
     ImageButton scrapBtn;
     Button productPageBtn;
-    TextView scrapBtnText;
 
     private List<ProductWithBrandName> productList;
 
@@ -49,7 +48,6 @@ public class Fragment_productdetail_page_Activity extends Fragment {
         ProductDao productDao = appDatabase.productDao();
         productList = productDao.getAll(); ////
         scrapBtn = fv.findViewById(R.id.scrapBtn);
-        scrapBtnText = fv.findViewById(R.id.scrapBtnText);
         productPageBtn = fv.findViewById(R.id.productPageBtn);
 
         int productId = getArguments().getInt("id");
@@ -63,16 +61,6 @@ public class Fragment_productdetail_page_Activity extends Fragment {
                 startActivity(intent);
             }
         });
-
-        scrapBtnText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), MypageScrapActivity.class);
-                //intent.putExtra() // 스크랩 페이지로 전달해줄 값 설정
-                startActivity(intent);
-            }
-        });
-
 
         productPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
