@@ -1,5 +1,6 @@
 package com.example.atto;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,8 +14,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,8 +24,6 @@ import com.bumptech.glide.Glide;
 import com.example.atto.database.AppDatabase;
 import com.example.atto.database.ProductDao;
 import com.example.atto.database.ProductWithBrandName;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -73,6 +70,15 @@ public class Fragment_marcket_category extends Fragment {
             String image_url = productWithBrandName.photoURL;
             Glide.with(this).load(image_url).into(imageView);
             linearLayout.addView(imageView);
+
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), Productdetail_page_Activity.class);
+                    intent.putExtra("id", productWithBrandName.id);
+                    startActivity(intent);
+                }
+            });
 
             //상품 카테고리
             TextView textView = new TextView(getActivity().getApplicationContext());

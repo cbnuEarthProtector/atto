@@ -1,8 +1,6 @@
 package com.example.atto;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -18,7 +16,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
@@ -26,12 +23,6 @@ import com.example.atto.database.AppDatabase;
 import com.example.atto.database.ProductDao;
 import com.example.atto.database.ProductWithBrandName;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
 import java.util.List;
 
 public class Fragment_marcket_page_Activity extends Fragment {
@@ -107,18 +98,9 @@ public class Fragment_marcket_page_Activity extends Fragment {
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("id", productWithBrandName.id);
-
-                    FragmentManager fragmentManager = getParentFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    Fragment_productdetail_page_Activity fragment_productdetail_page_activity
-                            = new Fragment_productdetail_page_Activity();
-                    fragment_productdetail_page_activity.setArguments(bundle);
-                    fragmentTransaction.addToBackStack("xyz"); // ?
-                    fragmentTransaction.hide(Fragment_marcket_page_Activity.this);
-                    fragmentTransaction.add(android.R.id.content, fragment_productdetail_page_activity);
-                    fragmentTransaction.commit();
+                    Intent intent = new Intent(getActivity(), Productdetail_page_Activity.class);
+                    intent.putExtra("id", productWithBrandName.id);
+                    startActivity(intent);
                 }
             });
 

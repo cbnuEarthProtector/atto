@@ -2,6 +2,7 @@ package com.example.atto;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,12 +19,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.atto.database.AppDatabase;
-import com.example.atto.database.Brand;
 import com.example.atto.database.BrandDao;
 import com.example.atto.database.ProductDao;
 import com.example.atto.database.ProductWithBrandName;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -62,6 +60,17 @@ public class BrandActivity extends AppCompatActivity {
             params.setMargins(50, 10, 30, 20);
             linearLayout.setLayoutParams(params);
             linearLayout.setOrientation(LinearLayout.VERTICAL);
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    Intent intent = new Intent(getApplicationContext(), Productdetail_page_Activity.class);
+                    intent.putExtra("id", productWithBrandName.id);
+                    startActivity(intent);
+                }
+            });
+
 
             //상품 사진
             ImageView imageView = new ImageView(this);
