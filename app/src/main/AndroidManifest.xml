@@ -25,6 +25,9 @@
             android:value="AIzaSyBV2kKMEvXfwlM5ub-3y4ckbbIacOkAv7M" />
 
         <activity
+            android:name=".ScrapListActivity"
+            android:exported="false" />
+        <activity
             android:name=".MypageScrapActivity"
             android:exported="false" />
         <activity

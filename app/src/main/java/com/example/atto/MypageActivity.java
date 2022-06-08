@@ -16,7 +16,7 @@ public class MypageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mypage);
+        setContentView(R.layout.activity_scrap_list_page);
 
         //뒤로가기 버튼 ->메인페이지로
         backbtn=(ImageButton) findViewById(R.id.backbtn);
@@ -33,7 +33,7 @@ public class MypageActivity extends AppCompatActivity {
         managescrapbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(), MypageScrapActivity.class);
+                Intent intent=new Intent(getApplicationContext(), ScrapListActivity.class);
                 startActivity(intent);
             }
         });

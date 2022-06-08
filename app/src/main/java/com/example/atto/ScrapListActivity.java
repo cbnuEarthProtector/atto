@@ -25,7 +25,7 @@ public class ScrapListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_scrap_list_page);
         linearLayout = findViewById(R.id.linearScrap);
 
         AppDatabase appDatabase = AppDatabase.getInstance(getApplicationContext());
