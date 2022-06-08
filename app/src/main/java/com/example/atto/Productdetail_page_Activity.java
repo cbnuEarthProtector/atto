@@ -5,20 +5,21 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.*;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.atto.database.AppDatabase;
 import com.example.atto.database.ProductDao;
 import com.example.atto.database.ProductWithBrandName;
+
 import java.util.List;
 
 public class Productdetail_page_Activity extends AppCompatActivity {
@@ -30,7 +31,7 @@ public class Productdetail_page_Activity extends AppCompatActivity {
     Button marcketbtn, restaurantbtn, scrapbtn;
 
     private List<ProductWithBrandName> productList;
-
+    private Dialog_scrap_popup dialog_scrap_popup;
     public Productdetail_page_Activity() {
         //productList = new Product();
     }
@@ -48,6 +49,12 @@ public class Productdetail_page_Activity extends AppCompatActivity {
         productPageBtn = findViewById(R.id.productPageBtn);
         productNameField = findViewById(R.id.productNameField);
         priceField = findViewById(R.id.priceField);
+
+        //다이얼로그 밖의 화면은 흐리게 만들어줌
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        layoutParams.dimAmount = 0.8f;
+        getWindow().setAttributes(layoutParams);
 
         Intent intent = getIntent();
         int productId = intent.getIntExtra("id", 0);
@@ -69,14 +76,18 @@ public class Productdetail_page_Activity extends AppCompatActivity {
             priceField.setText(thwon+","+onewon+" 원");
         }
 
-        // 스크랩 버튼 -> 스크랩 페이지로 연결
+        String image = matchingProduct.photoURL;
+        String brand = matchingProduct.brandName;
+        String product = matchingProduct.name;
+        String price = Integer.toString(matchingProduct.price) + "원";
+
+        // 스크랩 버튼 팝업창 띄우기
         scrapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                intent .putExtra("productDetailPage", "scrap");
-                //intent.putExtra() // 스크랩 페이지로 전달해줄 값 설정
-                startActivity(intent);
+                //Intent intent = new Intent(getApplicationContext(), MypageScrapActivity.class);
+                dialog_scrap_popup = new Dialog_scrap_popup(Productdetail_page_Activity.this,productId, image, brand, product, price);
+                dialog_scrap_popup.show();
             }
         });
 
