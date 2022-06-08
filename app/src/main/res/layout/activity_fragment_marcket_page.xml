@@ -82,7 +82,7 @@
 
             <!-- 카테고리별, 브랜드별 상품 frame -->
             <FrameLayout
-                android:id="@+id/marcketframe"
+                android:id="@+id/marketframe"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:nestedScrollingEnabled="false"></FrameLayout>

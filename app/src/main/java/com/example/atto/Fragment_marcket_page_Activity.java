@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,6 +31,7 @@ import java.util.List;
 
 public class Fragment_marcket_page_Activity extends Fragment {
     private LinearLayout lineartable;
+    private FrameLayout marketframe;
     Button categorybtn, brandbtn;
 
     private ViewPager2 sliderViewPager;
@@ -54,17 +55,21 @@ public class Fragment_marcket_page_Activity extends Fragment {
         View fv = inflater.inflate(R.layout.activity_fragment_marcket_page, container, false);
         //getXmlData(); // network 동작, 인터넷에서 xml을 받아오는 코드
 
+        marketframe=(FrameLayout)fv.findViewById(R.id.marketframe);
         categorybtn = (Button) fv.findViewById(R.id.categorybtn);
         brandbtn = (Button) fv.findViewById(R.id.brandbtn);
         //카테고리 별 상품보기 fragment 호출
         categorybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                LinearLayout.LayoutParams frameparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 3000);
+                marketframe.setLayoutParams(frameparams);
+
                 categorybtn.setTextColor(getResources().getColorStateList(R.color.mainGreen));
                 brandbtn.setTextColor(getResources().getColorStateList(R.color.black));
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 Fragment_marcket_category categoryFragment = new Fragment_marcket_category();
-                transaction.replace(R.id.marcketframe, categoryFragment);
+                transaction.replace(R.id.marketframe, categoryFragment);
                 transaction.commit();
             }
         });
@@ -73,11 +78,14 @@ public class Fragment_marcket_page_Activity extends Fragment {
         brandbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                LinearLayout.LayoutParams frameparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 600);
+                marketframe.setLayoutParams(frameparams);
+
                 brandbtn.setTextColor(getResources().getColorStateList(R.color.mainGreen));
                 categorybtn.setTextColor(getResources().getColorStateList(R.color.black));
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 Fragment_marcket_brand brandFragment = new Fragment_marcket_brand();
-                transaction.replace(R.id.marcketframe, brandFragment);
+                transaction.replace(R.id.marketframe, brandFragment);
                 transaction.commit();
             }
         });
@@ -108,6 +116,7 @@ public class Fragment_marcket_page_Activity extends Fragment {
         List<ProductWithBrandName> productWithBrandNameList = productDao.getAll();
 
         LinearLayout horlinear=new LinearLayout(getActivity().getApplicationContext());
+
         for (ProductWithBrandName productWithBrandName : productWithBrandNameList) {
             //상품 정보 vertical layout으로 출력
             LinearLayout linearLayout= new LinearLayout(getActivity().getApplicationContext());
