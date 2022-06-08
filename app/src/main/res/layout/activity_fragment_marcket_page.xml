@@ -29,9 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <!--mypage로 가는 버튼-->
                     <ImageButton
-                        android:id="@+id/mybtn"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="right"
@@ -41,17 +39,12 @@
                         tools:ignore="SpeakableTextPresentCheck"></ImageButton>
 
                     <TextView
-                        android:id="@+id/nickname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="15dp"
-                        android:textSize="16dp"
-                        android:text="닉네임님" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="15dp"
-                        android:textSize="14dp"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="10dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
                         android:text="지구를 지키러 함께 떠나요 ~" />
 
                     <!-- 카테고리, 브랜드 선택 버튼 -->

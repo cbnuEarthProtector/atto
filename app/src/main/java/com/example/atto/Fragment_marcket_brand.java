@@ -85,7 +85,7 @@ public class Fragment_marcket_brand extends Fragment {
 
             //브랜드 출력
             TextView textView = new TextView(getActivity().getApplicationContext());
-            textView.setText("[" + brand.name + "]");
+            textView.setText(brand.name );
             textView.setGravity(Gravity.CENTER);
             textView.setTextSize(14);
             textView.setPadding(10, 20, 0, 0);  //패딩

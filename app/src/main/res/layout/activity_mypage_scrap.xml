@@ -5,20 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MypageScrapActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageButton
             android:id="@+id/backbtn"
-            android:layout_width="44dp"
-            android:layout_height="45dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:background="@drawable/outline_arrow_back_ios_24"
+            android:layout_gravity="center"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
             android:text="스크랩 관리"/>
 
         <!--정렬 시 사용 -->
@@ -29,9 +34,11 @@
 
         <ImageView
             android:id="@+id/recyclebinbtn"
-            android:layout_width="44dp"
-            android:layout_height="45dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@drawable/recyclebin"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
             />
     </LinearLayout>
     <!--activity_fragment_myscrap_page.xml-->

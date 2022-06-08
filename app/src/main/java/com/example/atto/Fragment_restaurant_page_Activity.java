@@ -53,6 +53,7 @@ public class Fragment_restaurant_page_Activity extends Fragment implements OnMap
         intent.setData(Uri.parse("https://www.google.com/maps/d/u/0/viewer?ie=UTF8&hl=ko&msa=0&ll=37.80435926012475%2C126.97654766699219&spn=0.379134%2C0.617294&z=9&mid=11rmzgn_-gXKrRKPPVEhJfScfqJ8"));
         startActivity(intent);
 
+
         //구글 맵에 직접 마크하는 경우
 //        String str_loc_Nm = "충북대학교";
 //        double dbl_Lat = 36.6287;

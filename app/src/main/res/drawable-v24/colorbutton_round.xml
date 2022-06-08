@@ -3,11 +3,11 @@
 
     android:padding="10dp"
     android:shape="rectangle">
-    <solid android:color="#9F98C8" />
+    <solid android:color="#519E61" />
     <corners
-        android:bottomLeftRadius="12dp"
-        android:bottomRightRadius="12dp"
-        android:topLeftRadius="12dp"
-        android:topRightRadius="12dp" />
-    <!-- 보라색 round 버튼-->
+        android:bottomLeftRadius="200dp"
+        android:bottomRightRadius="200dp"
+        android:topLeftRadius="200dp"
+        android:topRightRadius="200dp" />
+    <!-- 초록색 round 버튼-->
 </shape>

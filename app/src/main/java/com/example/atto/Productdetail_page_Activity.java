@@ -3,6 +3,7 @@ package com.example.atto;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.*;
 
@@ -52,7 +53,16 @@ public class Productdetail_page_Activity extends AppCompatActivity {
         Glide.with(this).load(matchingProduct.photoURL).into(productImage);
         brandField.setText(matchingProduct.brandName); // 브랜드명
         productNameField.setText(matchingProduct.name); // 상품명
-        priceField.setText(Integer.toString(matchingProduct.price) + "원"); // 가격
+        //가격
+        int thwon =matchingProduct.price/1000;
+        int onewon=matchingProduct.price%1000;
+        if (onewon == 0) {
+            priceField.setText(thwon + ",000 원");
+        } else {
+            priceField.setText(thwon+","+onewon+" 원");
+        }
+
+
 
         // 스크랩 버튼 -> 스크랩 페이지로 연결
         scrapBtn.setOnClickListener(new View.OnClickListener() {
