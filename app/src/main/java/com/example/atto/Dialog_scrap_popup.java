@@ -15,6 +15,9 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.Glide;
 import com.example.atto.database.AppDatabase;
 import com.example.atto.database.ProductDao;
+import com.example.atto.database.ProductWithBrandName;
+
+import java.util.List;
 
 public class Dialog_scrap_popup extends Dialog {
     private TextView brand, product, price;
@@ -45,28 +48,21 @@ public class Dialog_scrap_popup extends Dialog {
         price.setText(priceField);
 
         editText = findViewById(R.id.editText);
-        String memo = editText.getText().toString();
         saveBtn = findViewById(R.id.saveBtn);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                String memo = editText.getText().toString();
+                productDao.addBookmark(pID, memo);
+
                 dismiss();
-                //if(memo.length()!=0){
-                    productDao.addBookmark(pID, memo);
-                    //test??
-                    //Toast.makeText(context, memo, Toast.LENGTH_LONG).show();
-                //}
-
-
             }
         });
-
-        final EditText memoText = findViewById(R.id.editText);
 
         //나가기
         shutdownClick = findViewById(R.id.cancel);
         shutdownClick.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 dismiss();
