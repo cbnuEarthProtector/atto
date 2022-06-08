@@ -1,6 +1,7 @@
 package com.example.atto;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -107,10 +108,12 @@ public class HomeActivity extends AppCompatActivity {
                     if(fragment.isVisible())
                         getSupportFragmentManager().beginTransaction().remove(fragment).commit();
                 }
-                FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
-                Fragment_myscrap_page_Activity myscrapFragment = new Fragment_myscrap_page_Activity();
-                transaction.replace(R.id.frame, myscrapFragment);
-                transaction.commit();
+//                FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
+//                Fragment_myscrap_page_Activity myscrapFragment = new Fragment_myscrap_page_Activity();
+//                transaction.replace(R.id.frame, myscrapFragment);
+//                transaction.commit();
+                Intent intent= new Intent(getApplicationContext(),ScrapListActivity.class);
+                startActivity(intent);
             }
         }
     }
