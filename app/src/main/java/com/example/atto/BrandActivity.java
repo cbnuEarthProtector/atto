@@ -5,6 +5,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -60,14 +62,13 @@ public class BrandActivity extends AppCompatActivity {
         for (ProductWithBrandName productWithBrandName : productWithBrandNameList) {
             //상품 정보 vertical layout으로 출력
             LinearLayout linearLayout = new LinearLayout(this);
+            linearLayout.setPadding(60, 0, 20, 70);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(50, 10, 30, 20);
             linearLayout.setLayoutParams(params);
             linearLayout.setOrientation(LinearLayout.VERTICAL);
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
 
                     Intent intent = new Intent(getApplicationContext(), Productdetail_page_Activity.class);
                     intent.putExtra("id", productWithBrandName.id);
@@ -80,6 +81,7 @@ public class BrandActivity extends AppCompatActivity {
             ImageView imageView = new ImageView(this);
             String image_url = productWithBrandName.photoURL;
             Glide.with(this).load(image_url).into(imageView);
+            imageView.setColorFilter(Color.parseColor("#f1f3f4"), PorterDuff.Mode.DST_OVER);
             linearLayout.addView(imageView);
 
             //상품 카테고리

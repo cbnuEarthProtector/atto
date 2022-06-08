@@ -94,6 +94,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+
         String str= getIntent().getStringExtra("productDetailPage");
         if (str != null) {
             if(str.equals("scrap")){
@@ -113,6 +114,34 @@ public class HomeActivity extends AppCompatActivity {
                 transaction.commit();
             }
         }
-    }
 
+        //productDetailPage 하단 버튼
+        str = getIntent().getStringExtra("productdetailbtn");
+        if(str !=null){
+            if (str.equals("marcket")) {
+                marcketbtn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.mainGreen));
+
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                Fragment_marcket_page_Activity marcketFragment = new Fragment_marcket_page_Activity();
+                transaction.replace(R.id.frame, marcketFragment);
+                transaction.commit();
+            } else if (str.equals("restaurant")) {
+                marcketbtn.setBackgroundColor(Color.parseColor("#f1f3f4"));
+                restaurantbtn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.mainGreen));
+
+                FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
+                Fragment_restaurant_page_Activity restaurantFragment = new Fragment_restaurant_page_Activity();
+                transaction.replace(R.id.frame, restaurantFragment);
+                transaction.commit();
+            } else if (str.equals("scrap")) {
+                marcketbtn.setBackgroundColor(Color.parseColor("#f1f3f4"));
+                scrapbtn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.mainGreen));
+
+                FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
+                Fragment_myscrap_page_Activity myscrapFragment = new Fragment_myscrap_page_Activity();
+                transaction.replace(R.id.frame, myscrapFragment);
+                transaction.commit();
+            }
+            }
+        }
 }

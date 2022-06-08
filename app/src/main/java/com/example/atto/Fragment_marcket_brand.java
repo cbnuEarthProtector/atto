@@ -2,6 +2,7 @@ package com.example.atto;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -85,7 +86,8 @@ public class Fragment_marcket_brand extends Fragment {
 
             //브랜드 출력
             TextView textView = new TextView(getActivity().getApplicationContext());
-            textView.setText(brand.name );
+            textView.setText(brand.name);
+            textView.setPaintFlags(textView.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
             textView.setGravity(Gravity.CENTER);
             textView.setTextSize(14);
             textView.setPadding(10, 20, 0, 0);  //패딩

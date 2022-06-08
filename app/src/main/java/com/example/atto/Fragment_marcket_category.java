@@ -2,6 +2,8 @@ package com.example.atto;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -60,8 +62,8 @@ public class Fragment_marcket_category extends Fragment {
         for (ProductWithBrandName productWithBrandName : productWithBrandNameList) {
             //상품 정보 vertical layout으로 출력
             LinearLayout linearLayout = new LinearLayout(getActivity().getApplicationContext());
+            linearLayout.setPadding(60, 0, 20, 70);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(50, 10, 30, 20);
             linearLayout.setLayoutParams(params);
             linearLayout.setOrientation(LinearLayout.VERTICAL);
 
@@ -69,6 +71,7 @@ public class Fragment_marcket_category extends Fragment {
             ImageView imageView = new ImageView(getActivity().getApplicationContext());
             String image_url = productWithBrandName.photoURL;
             Glide.with(this).load(image_url).into(imageView);
+            imageView.setColorFilter(Color.parseColor("#f1f3f4"), PorterDuff.Mode.DST_OVER);
             linearLayout.addView(imageView);
 
             linearLayout.setOnClickListener(new View.OnClickListener() {
