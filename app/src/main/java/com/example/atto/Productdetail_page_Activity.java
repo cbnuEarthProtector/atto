@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.*;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,7 @@ public class Productdetail_page_Activity extends AppCompatActivity {
     TextView brandField, productNameField, priceField;
 
     private List<ProductWithBrandName> productList;
-
+    private Dialog_scrap_popup dialog_scrap_popup;
     public Productdetail_page_Activity() {
         //productList = new Product();
     }
@@ -41,6 +42,12 @@ public class Productdetail_page_Activity extends AppCompatActivity {
         productNameField = findViewById(R.id.productNameField);
         priceField = findViewById(R.id.priceField);
 
+        //다이얼로그 밖의 화면은 흐리게 만들어줌
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        layoutParams.dimAmount = 0.8f;
+        getWindow().setAttributes(layoutParams);
+
         Intent intent = getIntent();
         int productId = intent.getIntExtra("id", 0);
         ProductWithBrandName matchingProduct = productList.get(productId - 1); // 배열 인덱스로 상품 찾기
@@ -50,18 +57,21 @@ public class Productdetail_page_Activity extends AppCompatActivity {
             }
         }
         Glide.with(this).load(matchingProduct.photoURL).into(productImage);
+        String image = matchingProduct.photoURL;
         brandField.setText(matchingProduct.brandName); // 브랜드명
+        String brand = matchingProduct.brandName;
         productNameField.setText(matchingProduct.name); // 상품명
+        String product = matchingProduct.name;
         priceField.setText(Integer.toString(matchingProduct.price) + "원"); // 가격
+        String price = Integer.toString(matchingProduct.price) + "원";
 
-        // 스크랩 버튼 -> 스크랩 페이지로 연결
+        // 스크랩 버튼 팝업창 띄우기
         scrapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                intent .putExtra("productDetailPage", "scrap");
-                //intent.putExtra() // 스크랩 페이지로 전달해줄 값 설정
-                startActivity(intent);
+                //Intent intent = new Intent(getApplicationContext(), MypageScrapActivity.class);
+                dialog_scrap_popup = new Dialog_scrap_popup(Productdetail_page_Activity.this,productId, image, brand, product, price);
+                dialog_scrap_popup.show();
             }
         });
 
