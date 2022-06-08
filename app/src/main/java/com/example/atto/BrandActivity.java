@@ -1,6 +1,7 @@
 package com.example.atto;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -32,6 +34,8 @@ public class BrandActivity extends AppCompatActivity {
     private LinearLayout lineartable;
 
     static Button prevChooseBtn = null;
+
+    ImageButton backbtn;
 
     public void printAllProductByBrandIdAndCategory(String category) {
         AppDatabase appDatabase = AppDatabase.getInstance(this);
@@ -184,5 +188,15 @@ public class BrandActivity extends AppCompatActivity {
             });
             chooseCategoryButtons.addView(button);
         }
+
+        //뒤로가기 버튼 ->브랜드 페이지로
+        backbtn=(ImageButton) findViewById(R.id.backbtn);
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

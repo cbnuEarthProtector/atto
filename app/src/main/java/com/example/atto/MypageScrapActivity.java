@@ -17,7 +17,7 @@ public class MypageScrapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage_scrap);
 
-        //뒤로가기 버튼 -> 마이페이지로 이동
+        //뒤로가기 버튼 -> 홈 화면으로 이동
         backbtn=(ImageButton) findViewById(R.id.backbtn);
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override

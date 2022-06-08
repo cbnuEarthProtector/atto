@@ -57,7 +57,7 @@ public class Fragment_marcket_page_Activity extends Fragment {
         categorybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                categorybtn.setTextColor(getResources().getColorStateList(R.color.ON));
+                categorybtn.setTextColor(getResources().getColorStateList(R.color.mainGreen));
                 brandbtn.setTextColor(getResources().getColorStateList(R.color.black));
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 Fragment_marcket_category categoryFragment = new Fragment_marcket_category();
@@ -70,7 +70,7 @@ public class Fragment_marcket_page_Activity extends Fragment {
         brandbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                brandbtn.setTextColor(getResources().getColorStateList(R.color.ON));
+                brandbtn.setTextColor(getResources().getColorStateList(R.color.mainGreen));
                 categorybtn.setTextColor(getResources().getColorStateList(R.color.black));
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 Fragment_marcket_brand brandFragment = new Fragment_marcket_brand();
@@ -92,7 +92,7 @@ public class Fragment_marcket_page_Activity extends Fragment {
             //상품 정보 vertical layout으로 출력
             LinearLayout linearLayout= new LinearLayout(getActivity().getApplicationContext());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(50,10,30,20);  //마진 수정
+            params.setMargins(70,10,30,20);  //마진 수정
             linearLayout.setLayoutParams(params);
             linearLayout.setOrientation(LinearLayout.VERTICAL);
             linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +145,7 @@ public class Fragment_marcket_page_Activity extends Fragment {
             textView3.setPadding(30, 40, 0, 0);  //패딩
             linearLayout.addView(textView3);
 
-            //한 줄에 상품 세 개씩 출력
+            //한 줄에 상품 두 개씩 출력
             if (productWithBrandName.id % 2 == 0) {
                 horlinear = new LinearLayout(getActivity().getApplicationContext());
                 lineartable.addView(horlinear);

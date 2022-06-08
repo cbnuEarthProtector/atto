@@ -34,6 +34,7 @@
             android:background="@drawable/recyclebin"
             />
     </LinearLayout>
+    <!--activity_fragment_myscrap_page.xml-->
     <FrameLayout
         android:id="@+id/scrapframe"
         android:layout_width="match_parent"

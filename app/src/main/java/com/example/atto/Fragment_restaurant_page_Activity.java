@@ -1,6 +1,7 @@
 package com.example.atto;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,9 +35,10 @@ public class Fragment_restaurant_page_Activity extends Fragment implements OnMap
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootview = (ViewGroup) inflater.inflate(R.layout.activity_fragment_restaurant_page, container, false);
 
+        //마켓 페이지로 연결해야댐
+
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
 
         return rootview;
     }
@@ -66,4 +69,5 @@ public class Fragment_restaurant_page_Activity extends Fragment implements OnMap
 //        gMap.addMarker(markerOptions);
 //        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Location, 10));
     }
+
 }

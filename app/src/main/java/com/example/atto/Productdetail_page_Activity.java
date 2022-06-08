@@ -65,7 +65,6 @@ public class Productdetail_page_Activity extends AppCompatActivity {
         priceField.setText(Integer.toString(matchingProduct.price) + "원"); // 가격
         String price = Integer.toString(matchingProduct.price) + "원";
 
-
         // 스크랩 버튼 팝업창 띄우기
         scrapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,8 +72,6 @@ public class Productdetail_page_Activity extends AppCompatActivity {
                 //Intent intent = new Intent(getApplicationContext(), MypageScrapActivity.class);
                 dialog_scrap_popup = new Dialog_scrap_popup(Productdetail_page_Activity.this,productId, image, brand, product, price);
                 dialog_scrap_popup.show();
-                //intent.putExtra() // 스크랩 페이지로 전달해줄 값 설정
-                //startActivity(intent);
             }
         });
 

@@ -2,8 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"    tools:context=".Fragment_marcket_page_Activity">
+    android:layout_height="match_parent"
+    tools:context=".Fragment_marcket_page_Activity">
 
+    <!--인기상품 출력되는 마켓 페이지-->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -33,6 +35,8 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="right"
+                        android:layout_marginTop="30px"
+                        android:layout_marginRight="30px"
                         android:background="@drawable/mypagebtn"
                         tools:ignore="SpeakableTextPresentCheck"></ImageButton>
 
@@ -55,7 +59,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="15dp"
+                        android:paddingTop="17dp"
                         android:paddingLeft="15dp">
                         <Button
                             android:id="@+id/categorybtn"
@@ -94,8 +98,8 @@
             <ImageView
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/dog"></ImageView>
+                android:layout_height="360dp"
+                android:src="@drawable/banner"></ImageView>
             <!--인기상품 추가 -->
             <TextView
                 android:layout_width="match_parent"

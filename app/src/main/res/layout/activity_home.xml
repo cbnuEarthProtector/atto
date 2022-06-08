@@ -11,32 +11,43 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_alignParentBottom="true">
+        android:layout_height="85dp"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="#f1f3f4">
 
         <Button
             android:id="@+id/marcketbtn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:backgroundTint="#f1f3f4"
+            android:drawableTop="@drawable/marcket_resize"
+            android:paddingTop="10dp"
             android:text="@string/마켓"
-            style="?android:attr/buttonBarButtonStyle" />
+            android:textColor="#3c3f41"/>
 
         <Button
             android:id="@+id/restaurantbtn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:backgroundTint="#f1f3f4"
+            android:drawableTop="@drawable/vegan_resize"
+            android:paddingTop="8dp"
             android:text="@string/음식점"
-            style="?android:attr/buttonBarButtonStyle" />
+            android:textColor="#3c3f41"/>
 
         <Button
             android:id="@+id/scrapbtn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:backgroundTint="#f1f3f4"
+            android:drawableTop="@drawable/bookmark_resize"
+            android:paddingTop="10dp"
+
             android:text="@string/my스크랩"
-            style="?android:attr/buttonBarButtonStyle" />
+            android:textColor="#3c3f41"/>
 
     </LinearLayout>
 

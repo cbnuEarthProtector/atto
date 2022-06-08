@@ -154,9 +154,15 @@ public class Fragment_marcket_category extends Fragment {
         });
 
         LinearLayout chooseCategoryButtons = fv.findViewById(R.id.chooseCategoryButtons);
+
         for (int i = 0; i < categories.length; i++) {
             Button button = new Button(getActivity().getApplicationContext());
-            button.setBackgroundResource(R.drawable.roundbutton);
+            if (i == 0) {
+                button.setBackgroundResource(R.drawable.selected_roundbutton);
+            } else {
+                button.setBackgroundResource(R.drawable.roundbutton);
+            }
+
             button.setText(res.getStringArray(R.array.categoryKOR)[i]);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,

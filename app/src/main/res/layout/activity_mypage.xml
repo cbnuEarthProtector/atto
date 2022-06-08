@@ -77,11 +77,5 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:text="스크랩 관리" />
-    <Button
-        android:id="@+id/logoutbtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:text="로그아웃" />
 
 </LinearLayout>
