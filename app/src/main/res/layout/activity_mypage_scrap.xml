@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MypageScrapActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/backbtn"
+            android:layout_width="44dp"
+            android:layout_height="45dp"
+            android:background="@drawable/outline_arrow_back_ios_24"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="스크랩 관리"/>
+
+        <!--정렬 시 사용 -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/recyclebinbtn"
+            android:layout_width="44dp"
+            android:layout_height="45dp"
+            android:background="@drawable/recyclebin"
+            />
+    </LinearLayout>
+    <!--activity_fragment_myscrap_page.xml-->
+    <FrameLayout
+        android:id="@+id/scrapframe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!--    <Button-->
+    <!--        android:id="@+id/button"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="popup" />-->
+
+</LinearLayout>
