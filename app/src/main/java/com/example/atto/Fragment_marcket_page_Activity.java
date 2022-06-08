@@ -17,8 +17,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.example.atto.database.AppDatabase;
@@ -29,8 +31,18 @@ import java.util.List;
 
 public class Fragment_marcket_page_Activity extends Fragment {
     private LinearLayout lineartable;
-    ImageButton mybtn;
     Button categorybtn, brandbtn;
+
+    private ViewPager2 sliderViewPager;
+    private LinearLayout layoutIndicator;
+
+    private String[] images = new String[] {
+            "https://postfiles.pstatic.net/MjAyMDA4MTBfNDQg/MDAxNTk3MDU0NjcwNTYx.wvwPx6D_uqmEyMintb6tJkHI_cqOpddR2xryuDHu_Isg.FulNX1_0XbiOyxQ1zc1cIR640enh3ymV4Q35zvFIcyMg.PNG.tlswlgprjt/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2020-08-10_%EC%98%A4%ED%9B%84_6.28.36.png?type=w966",
+            "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMDA4MTBfMjY5%2FMDAxNTk3MDQ5OTkwMDQ1.gcJmG_7aCy9tHgr5wAbR_b8NbzAkfugPCIn1Jnl_Iigg.53tCYShI4Mv2S6nYfDNlh3xDuJphiftys0eFn_p18YYg.JPEG.gggrin_a%2F20200809_231034.jpg&type=sc960_832",
+            "https://postfiles.pstatic.net/MjAyMDA4MTBfMjI5/MDAxNTk3MDU2MDY2ODM0.B4aiZsr90JtUNjFqGXK4zCCjdXE8RTsIMRBkv4Q7dRYg.Gcih9844E9k09vWoFQrNjEjgaW2idn20TSeAPVADWUgg.PNG.tlswlgprjt/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2020-08-10_%EC%98%A4%ED%9B%84_6.28.05.png?type=w966",
+            "https://postfiles.pstatic.net/MjAyMDA4MTBfMTgz/MDAxNTk3MDU3MTM2ODI5.kSKKTpvnrrif_g3TlwNdRgFgRw9kRTmue4OfBvn5WmYg.w_0gHWSYLiuo-SBl8E9YHYUYzjI2GDXjJvZFr5ZmxhAg.PNG.tlswlgprjt/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2020-08-10_%EC%98%A4%ED%9B%84_7.57.43.png?type=w966",
+            "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMDA4MTBfMTIg%2FMDAxNTk3MDUwNDgyNzkx.MzVD3tPlWDmYgaXBiX4byt2olhuxNIuR71CrQdsinX8g.ucQsgQc8Fnmey7s8yQdyxYqTTYroqwIBBPyhv6PBCp0g.JPEG.gggrin_a%2F%25C0%25DA%25BF%25AC%25C0%25AF%25B7%25A1%25BF%25F8%25B7%25E1_%25282%2529.jpg&type=sc960_832"
+    };
 
     public Fragment_marcket_page_Activity() {
 
@@ -69,6 +81,23 @@ public class Fragment_marcket_page_Activity extends Fragment {
                 transaction.commit();
             }
         });
+
+        //슬라이드 배너
+        sliderViewPager = fv.findViewById(R.id.sliderViewPager);
+        layoutIndicator = fv.findViewById(R.id.layoutIndicators);
+
+        sliderViewPager.setOffscreenPageLimit(1);
+        sliderViewPager.setAdapter(new ImageSliderAdapter(getActivity().getApplicationContext(), images));
+
+        sliderViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                setCurrentIndicator(position);
+            }
+        });
+
+        setupIndicators(images.length);
 
         //인기상품 출력
         lineartable=(LinearLayout)fv.findViewById(R.id.lineartable);
@@ -149,5 +178,40 @@ public class Fragment_marcket_page_Activity extends Fragment {
         }
 
         return fv;
+    }
+
+    private void setupIndicators(int count) {
+        ImageView[] indicators = new ImageView[count];
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        params.setMargins(16, 8, 16, 8);
+
+        for (int i = 0; i < indicators.length; i++) {
+            indicators[i] = new ImageView(getActivity().getApplicationContext());
+            indicators[i].setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(),
+                    R.drawable.bg_indicator_inactive));
+            indicators[i].setLayoutParams(params);
+            layoutIndicator.addView(indicators[i]);
+        }
+        setCurrentIndicator(0);
+    }
+
+    private void setCurrentIndicator(int position) {
+        int childCount = layoutIndicator.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            ImageView imageView = (ImageView) layoutIndicator.getChildAt(i);
+            if (i == position) {
+                imageView.setImageDrawable(ContextCompat.getDrawable(
+                        getActivity().getApplicationContext(),
+                        R.drawable.bg_indicator_active
+                ));
+            } else {
+                imageView.setImageDrawable(ContextCompat.getDrawable(
+                        getActivity().getApplicationContext(),
+                        R.drawable.bg_indicator_inactive
+                ));
+            }
+        }
     }
 }
