@@ -1,5 +1,7 @@
 package com.example.atto;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -41,7 +43,7 @@ public class Fragment_myscrap_page_Activity extends Fragment {
         for(ProductWithBrandName product : productsWithBookmarked) {
             LinearLayout linearScrapElement = new LinearLayout(getActivity().getApplicationContext());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(70,10,30,20);
+            params.setMargins(70,40,30,40);
             linearScrapElement.setLayoutParams(params);
             linearScrapElement.setOrientation(LinearLayout.VERTICAL);
             linearScrapElement.setOnClickListener(new View.OnClickListener() {
@@ -51,19 +53,61 @@ public class Fragment_myscrap_page_Activity extends Fragment {
                 }
             });
 
+            //상품 정보 레이아웃
+            LinearLayout hlinear= new LinearLayout(getActivity().getApplicationContext());
+            LinearLayout.LayoutParams hparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            hlinear.setLayoutParams(hparams);
+            linearScrapElement.addView(hlinear);
+
             //상품 사진
             ImageView imageView= new ImageView(getActivity().getApplicationContext());
             String image_url = product.photoURL;
             Glide.with(this).load(image_url).into(imageView);
-            linearScrapElement.addView(imageView);
+            LinearLayout.LayoutParams imageparams= new LinearLayout.LayoutParams(300, 300);
+            imageView.setLayoutParams(imageparams);
+            imageView.setColorFilter(Color.parseColor("#f1f3f4"), PorterDuff.Mode.DST_OVER);
+            hlinear.addView(imageView);
 
-            //상품 이름
-            TextView productName = new TextView(getActivity().getApplicationContext());
-            productName.setText("["+product.name+"]");
-            productName.setGravity(Gravity.LEFT);
-            productName.setTextSize(14);
-            productName.setPadding(30, 20, 0, 0);
-            linearScrapElement.addView(productName);
+            //상품 정보 레이아웃
+            LinearLayout vlinear= new LinearLayout(getActivity().getApplicationContext());
+            LinearLayout.LayoutParams vparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            vlinear.setLayoutParams(vparams);
+            vlinear.setPadding(60,0,0,0);
+            vlinear.setOrientation(LinearLayout.VERTICAL);
+            hlinear.addView(vlinear);
+
+            //상품 카테고리
+            TextView textView2 = new TextView(getActivity().getApplicationContext());
+            textView2.setText("["+product.category+"]");  //카테고리
+            textView2.setGravity(Gravity.LEFT);
+            textView2.setTextSize(18);
+            vlinear.addView(textView2);
+
+            //상품 정보
+            TextView textView = new TextView(getActivity().getApplicationContext());
+            textView.setText(product.name);  //이름
+            textView.setGravity(Gravity.LEFT);
+            textView.setEms(10);  //한 줄에 글자 수
+            textView.setTextSize(18);
+            vlinear.addView(textView);
+
+            //가격
+            TextView textView3 = new TextView(getActivity().getApplicationContext());
+            if (product.price == -1) textView3.setText("품절");
+            else {  //가격 출력
+                int thwon =product.price/1000;
+                int onewon=product.price%1000;
+                if (onewon == 0) {
+                    textView3.setText(thwon + ",000 원");
+                } else {
+                    textView3.setText(thwon+","+onewon+" 원");
+                }
+            }
+            textView3.setGravity(Gravity.LEFT);
+            textView3.setPadding(0, 10, 0, 0);
+            textView3.setTextSize(18);
+            vlinear.addView(textView3);
+
 
             //상품 메모
             TextView productMemo = new TextView(getActivity().getApplicationContext());
@@ -72,12 +116,20 @@ public class Fragment_myscrap_page_Activity extends Fragment {
             productMemo.setMaxLines(2);  // 두 줄 출력
             productMemo.setEms(20);  // 한 줄에 글자 수
             productMemo.setEllipsize(TextUtils.TruncateAt.END); // 말줄임표
-            productMemo.setTextSize(14);
-            productMemo.setPadding(30, 0, 0, 0);
+            productMemo.setTextSize(18);
+            productMemo.setPadding(0, 30, 0, 0);
             linearScrapElement.addView(productMemo);
+
 
             linearLayout.addView(linearScrapElement);
 
+            //수평선
+            View view= new View(getActivity().getApplicationContext());
+            LinearLayout.LayoutParams viewparam= new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2);
+            view.setLayoutParams(viewparam);
+            view.setBackgroundColor(Color.parseColor("#f1f3f4"));
+            view.setPadding(0,30,0, 30);
+            linearLayout.addView(view);
         }
         return fv;
     }

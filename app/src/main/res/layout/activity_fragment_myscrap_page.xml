@@ -11,38 +11,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:orientation="vertical">
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="30dp"
+            android:paddingBottom="20dp"
+            android:text="스크랩 관리"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#f1f3f4"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingLeft="20dp"
-                android:text="스크랩 관리"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <!--정렬 시 사용 -->
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:id="@+id/recyclebinbtn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginRight="5dp"
-                android:background="@android:color/transparent"
-                app:srcCompat="@drawable/trash_bin" />
-
-        </LinearLayout>
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:paddingBottom="60dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

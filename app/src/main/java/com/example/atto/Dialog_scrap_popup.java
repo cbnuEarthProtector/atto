@@ -2,6 +2,8 @@ package com.example.atto;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +39,7 @@ public class Dialog_scrap_popup extends Dialog {
 
         productImageView=findViewById(R.id.productImageView);
         Glide.with(context).load(image).into(productImageView);
+        productImageView.setColorFilter(Color.parseColor("#f1f3f4"), PorterDuff.Mode.DST_OVER);
 
         brand = findViewById(R.id.brandName);
         brand.setText(Brand);
@@ -46,6 +49,14 @@ public class Dialog_scrap_popup extends Dialog {
 
         price = findViewById(R.id.price);
         price.setText(priceField);
+        /*
+        int thwon =Integer.parseInt(priceField)/1000;
+        int onewon=Integer.parseInt(priceField)%1000;
+        if (onewon == 0) {
+            price.setText(thwon + ",000 원");
+        } else {
+            price.setText(thwon+","+onewon+" 원");
+        }*/
 
         editText = findViewById(R.id.editText);
         saveBtn = findViewById(R.id.saveBtn);
