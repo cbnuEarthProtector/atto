@@ -80,13 +80,13 @@ public class Productdetail_page_Activity extends AppCompatActivity {
         String brand = matchingProduct.brandName;
         String product = matchingProduct.name;
         String price = Integer.toString(matchingProduct.price) + "원";
+        String memo=matchingProduct.memo;
 
         // 스크랩 버튼 팝업창 띄우기
         scrapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(getApplicationContext(), MypageScrapActivity.class);
-                dialog_scrap_popup = new Dialog_scrap_popup(Productdetail_page_Activity.this,productId, image, brand, product, price);
+                dialog_scrap_popup = new Dialog_scrap_popup(Productdetail_page_Activity.this,productId, image, brand, product, price, memo);
                 dialog_scrap_popup.show();
             }
         });

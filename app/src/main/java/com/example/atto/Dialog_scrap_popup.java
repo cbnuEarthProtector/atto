@@ -30,7 +30,7 @@ public class Dialog_scrap_popup extends Dialog {
     private ProductDao productDao;
     private EditText editText;
 
-    public Dialog_scrap_popup(@NonNull Context context,int pID, String image, String Brand, String productName, String priceField){
+    public Dialog_scrap_popup(@NonNull Context context,int pID, String image, String Brand, String productName, String priceField, String memoField){
         super(context);
         setContentView(R.layout.activity_scrap_popup);
 
@@ -59,6 +59,9 @@ public class Dialog_scrap_popup extends Dialog {
         }*/
 
         editText = findViewById(R.id.editText);
+        if (memoField != null) {
+            editText.setText(memoField);
+        }
         saveBtn = findViewById(R.id.saveBtn);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,5 +1,7 @@
 package com.example.atto;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.atto.database.AppDatabase;
@@ -25,6 +28,7 @@ import java.util.List;
 
 public class Fragment_myscrap_page_Activity extends Fragment {
     private LinearLayout linearLayout;
+    private Dialog_scrap_popup dialog_scrap_popup;
 
     public Fragment_myscrap_page_Activity(){
 
@@ -50,6 +54,9 @@ public class Fragment_myscrap_page_Activity extends Fragment {
                 @Override
                 public void onClick(View v) {
                     // 스크랩 pop up 페이지
+                    String price = Integer.toString(product.price) + "원";
+                    dialog_scrap_popup = new Dialog_scrap_popup( getActivity(), product.id, product.photoURL, product.brandName, product.name, price, product.memo);
+                    dialog_scrap_popup.show();
                 }
             });
 
