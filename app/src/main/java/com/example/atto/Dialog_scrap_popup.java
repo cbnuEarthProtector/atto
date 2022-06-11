@@ -54,7 +54,7 @@ public class Dialog_scrap_popup extends Dialog {
             public void onClick(View view) {
 
                 String memo = editText.getText().toString();
-                productDao.addBookmark(pID, memo);
+//                productDao.addBookmark(pID, memo);
 
                 dismiss();
             }

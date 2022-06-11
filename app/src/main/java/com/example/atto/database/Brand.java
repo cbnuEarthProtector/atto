@@ -14,7 +14,4 @@ public class Brand {
 
     @ColumnInfo(name = "photo_url")
     public String photoURL;
-
-    @ColumnInfo(name = "is_bookmarked")
-    public Integer isBookmarked;
 }
