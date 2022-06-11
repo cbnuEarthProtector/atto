@@ -30,14 +30,14 @@ public class Dialog_scrap_popup extends Dialog {
     private ProductDao productDao;
     private EditText editText;
 
-    public Dialog_scrap_popup(@NonNull Context context,int pID, String image, String Brand, String productName, String priceField, String memoField){
+    public Dialog_scrap_popup(@NonNull Context context, int pID, String image, String Brand, String productName, String priceField, String memoField) {
         super(context);
         setContentView(R.layout.activity_scrap_popup);
 
         AppDatabase appDatabase = AppDatabase.getInstance(context);
         ProductDao productDao = appDatabase.productDao();
 
-        productImageView=findViewById(R.id.productImageView);
+        productImageView = findViewById(R.id.productImageView);
         Glide.with(context).load(image).into(productImageView);
         productImageView.setColorFilter(Color.parseColor("#f1f3f4"), PorterDuff.Mode.DST_OVER);
 
@@ -48,15 +48,18 @@ public class Dialog_scrap_popup extends Dialog {
         product.setText(productName);
 
         price = findViewById(R.id.price);
-        price.setText(priceField);
-        /*
-        int thwon =Integer.parseInt(priceField)/1000;
-        int onewon=Integer.parseInt(priceField)%1000;
-        if (onewon == 0) {
-            price.setText(thwon + ",000 원");
-        } else {
-            price.setText(thwon+","+onewon+" 원");
-        }*/
+        int productPrice = Integer.parseInt(priceField);
+        //price.setText(priceField);
+        if (productPrice == -1) price.setText("품절");
+        else {  //가격 출력
+            int thwon = productPrice / 1000;
+            int onewon = productPrice % 1000;
+            if (onewon == 0) {
+                price.setText(thwon + ",000 원");
+            } else {
+                price.setText(thwon + "," + onewon + " 원");
+            }
+        }
 
         editText = findViewById(R.id.editText);
         if (memoField != null) {

@@ -10,8 +10,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,6 +32,9 @@ public class Fragment_myscrap_page_Activity extends Fragment {
     private LinearLayout linearLayout;
     private Dialog_scrap_popup dialog_scrap_popup;
 
+    private ScrollView scrollView;
+    Button goupbtn;
+
     public Fragment_myscrap_page_Activity(){
 
     }
@@ -38,6 +43,20 @@ public class Fragment_myscrap_page_Activity extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fv = inflater.inflate(R.layout.activity_fragment_myscrap_page, container, false);
+
+        scrollView=(ScrollView)fv.findViewById(R.id.scrollView);
+        goupbtn=(Button)fv.findViewById(R.id.go_up);
+        goupbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scrollView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollView.fullScroll(ScrollView.FOCUS_UP);
+                    }
+                });
+            }
+        });
 
         linearLayout = fv.findViewById(R.id.linearScrap);
 
@@ -54,7 +73,7 @@ public class Fragment_myscrap_page_Activity extends Fragment {
                 @Override
                 public void onClick(View v) {
                     // 스크랩 pop up 페이지
-                    String price = Integer.toString(product.price) + "원";
+                    String price = Integer.toString(product.price) ;
                     dialog_scrap_popup = new Dialog_scrap_popup( getActivity(), product.id, product.photoURL, product.brandName, product.name, price, product.memo);
                     dialog_scrap_popup.show();
                 }

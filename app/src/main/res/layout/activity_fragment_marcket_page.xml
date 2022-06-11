@@ -8,6 +8,7 @@
 
     <!--인기상품 출력되는 마켓 페이지-->
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -138,6 +139,21 @@
                 android:orientation="vertical" />
 
         </LinearLayout>
-
     </ScrollView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <Button
+            android:id="@+id/go_up"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="80dp"
+            android:layout_marginRight="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/circle_up_icon"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </FrameLayout>

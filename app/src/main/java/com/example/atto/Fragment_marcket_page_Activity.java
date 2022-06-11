@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,7 +33,8 @@ import java.util.List;
 public class Fragment_marcket_page_Activity extends Fragment {
     private LinearLayout lineartable;
     private FrameLayout marketframe;
-    Button categorybtn, brandbtn;
+    private ScrollView scrollView;
+    Button categorybtn, brandbtn, goupbtn;
 
     private ViewPager2 sliderViewPager;
     private LinearLayout layoutIndicator;
@@ -56,6 +58,19 @@ public class Fragment_marcket_page_Activity extends Fragment {
         //getXmlData(); // network 동작, 인터넷에서 xml을 받아오는 코드
 
         marketframe=(FrameLayout)fv.findViewById(R.id.marketframe);
+        scrollView=(ScrollView)fv.findViewById(R.id.scrollView);
+        goupbtn=(Button)fv.findViewById(R.id.go_up);
+        goupbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scrollView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollView.fullScroll(ScrollView.FOCUS_UP);
+                    }
+                });
+            }
+        });
         categorybtn = (Button) fv.findViewById(R.id.categorybtn);
         brandbtn = (Button) fv.findViewById(R.id.brandbtn);
         //카테고리 별 상품보기 fragment 호출
@@ -87,6 +102,7 @@ public class Fragment_marcket_page_Activity extends Fragment {
                 Fragment_marcket_brand brandFragment = new Fragment_marcket_brand();
                 transaction.replace(R.id.marketframe, brandFragment);
                 transaction.commit();
+
             }
         });
 

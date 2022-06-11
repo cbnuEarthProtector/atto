@@ -68,18 +68,21 @@ public class Productdetail_page_Activity extends AppCompatActivity {
         productImage.setColorFilter(Color.parseColor("#f1f3f4"), PorterDuff.Mode.DST_OVER);
         productNameField.setText("["+matchingProduct.brandName+"] "+matchingProduct.name); // 브랜드명, 상품명
         //가격
-        int thwon =matchingProduct.price/1000;
-        int onewon=matchingProduct.price%1000;
-        if (onewon == 0) {
-            priceField.setText(thwon + ",000 원");
-        } else {
-            priceField.setText(thwon+","+onewon+" 원");
+        if (matchingProduct.price == -1) priceField.setText("품절");
+        else {  //가격 출력
+            int thwon =matchingProduct.price/1000;
+            int onewon=matchingProduct.price%1000;
+            if (onewon == 0) {
+                priceField.setText(thwon + ",000 원");
+            } else {
+                priceField.setText(thwon+","+onewon+" 원");
+            }
         }
 
         String image = matchingProduct.photoURL;
         String brand = matchingProduct.brandName;
         String product = matchingProduct.name;
-        String price = Integer.toString(matchingProduct.price) + "원";
+        String price = Integer.toString(matchingProduct.price) ;
         String memo=matchingProduct.memo;
 
         // 스크랩 버튼 팝업창 띄우기
