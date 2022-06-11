@@ -7,13 +7,12 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Product.class, Brand.class}, version = 3)
+@Database(entities = {Product.class, Brand.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DB_NAME = "appDatabase.db";
     private static volatile AppDatabase instance;
 
     public static synchronized AppDatabase getInstance(Context context) {
-        Log.v("db", "get database");
         if (instance == null) {
             instance = create(context);
         }
@@ -21,7 +20,6 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     private static AppDatabase create(final Context context) {
-        Log.v("db", "create database");
         return Room.databaseBuilder(context, AppDatabase.class, DB_NAME)
                 .createFromAsset("database/app.db")
                 .fallbackToDestructiveMigration()

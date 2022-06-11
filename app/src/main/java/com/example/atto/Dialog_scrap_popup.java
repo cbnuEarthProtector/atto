@@ -14,8 +14,11 @@ import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.example.atto.database.AppDatabase;
+import com.example.atto.database.ProductBookmark;
+import com.example.atto.database.ProductBookmarkDao;
 import com.example.atto.database.ProductDao;
 import com.example.atto.database.ProductWithBrandName;
+import com.example.atto.database.UserDatabase;
 
 import java.util.List;
 
@@ -32,8 +35,8 @@ public class Dialog_scrap_popup extends Dialog {
         super(context);
         setContentView(R.layout.activity_scrap_popup);
 
-        AppDatabase appDatabase = AppDatabase.getInstance(context);
-        ProductDao productDao = appDatabase.productDao();
+        UserDatabase userDatabase = UserDatabase.getInstance(context);
+        ProductBookmarkDao productBookmarkDao = userDatabase.productBookmarkDao();
 
         productImageView=findViewById(R.id.productImageView);
         Glide.with(context).load(image).into(productImageView);
@@ -54,7 +57,7 @@ public class Dialog_scrap_popup extends Dialog {
             public void onClick(View view) {
 
                 String memo = editText.getText().toString();
-//                productDao.addBookmark(pID, memo);
+                productBookmarkDao.insert(new ProductBookmark(pID, memo));
 
                 dismiss();
             }

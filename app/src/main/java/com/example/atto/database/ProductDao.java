@@ -9,6 +9,9 @@ import java.util.List;
 @Dao
 public interface ProductDao {
 
+    @Query("select * from Product where id = :productId;")
+    Product findById(Integer productId);
+
     @Query("select Product.id,\n" +
             "       Product.name,\n" +
             "       Product.category,\n" +

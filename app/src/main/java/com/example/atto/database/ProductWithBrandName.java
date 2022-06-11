@@ -8,6 +8,4 @@ public class ProductWithBrandName {
     public Integer price;
     public String siteURL;
     public String photoURL;
-    public Integer isBookmarked;
-    public String memo;
 }
