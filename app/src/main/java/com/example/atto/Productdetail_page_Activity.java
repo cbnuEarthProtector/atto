@@ -1,6 +1,7 @@
 package com.example.atto;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
@@ -99,6 +100,8 @@ public class Productdetail_page_Activity extends AppCompatActivity {
         memo = "";
         if (productBookmark != null) {
             memo = productBookmark.memo;
+            scrapBtn.setImageResource(R.drawable.is_bookmarked);
+            scrapBtn.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.mainGreen)));
         }
 
         // 스크랩 버튼 팝업창 띄우기
@@ -107,6 +110,9 @@ public class Productdetail_page_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 dialog_scrap_popup = new Dialog_scrap_popup(Productdetail_page_Activity.this, productId, image, brand, product, price, memo);
                 dialog_scrap_popup.show();
+
+                scrapBtn.setImageResource(R.drawable.is_bookmarked);
+                scrapBtn.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.mainGreen)));
             }
         });
 
