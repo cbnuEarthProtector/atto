@@ -166,7 +166,11 @@ public class BrandActivity extends AppCompatActivity {
         LinearLayout chooseCategoryButtons = findViewById(R.id.chooseCategoryButtons);
         for (int i = 0; i < categories.length; i++) {
             Button button = new Button(this);
-            button.setBackgroundResource(R.drawable.roundbutton);
+            if (i == 0) {
+                button.setBackgroundResource(R.drawable.selected_roundbutton);
+            } else {
+                button.setBackgroundResource(R.drawable.roundbutton);
+            }
             button.setText(res.getStringArray(R.array.categoryKOR)[i]);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
