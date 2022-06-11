@@ -12,17 +12,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <TextView style="?android:textAppearanceMedium"
-                android:padding="16dp"
-                android:lineSpacingMultiplier="1.2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="지도" />
 
             <WebView
                 android:id="@+id/webView"
                 android:layout_width="match_parent"
-                android:layout_height="645dp"></WebView>
+                android:layout_height="675dp"></WebView>
         </LinearLayout>
 
     </ScrollView>
