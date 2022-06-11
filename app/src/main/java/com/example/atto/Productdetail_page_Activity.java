@@ -17,11 +17,16 @@ import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.atto.database.AppDatabase;
+import com.example.atto.database.ProductBookmark;
+import com.example.atto.database.ProductBookmarkDao;
 import com.example.atto.database.ProductDao;
 import com.example.atto.database.ProductWithBrandName;
+import com.example.atto.database.UserDatabase;
 
 import java.util.List;
 
+// ProductDetailPageActivity
+// product_detail_page_activity
 public class Productdetail_page_Activity extends AppCompatActivity {
     ImageView productImage;
     ImageButton scrapBtn;
@@ -30,8 +35,11 @@ public class Productdetail_page_Activity extends AppCompatActivity {
 
     Button marcketbtn, restaurantbtn, scrapbtn;
 
+    String image, brand, product, price, memo;
+
     private List<ProductWithBrandName> productList;
     private Dialog_scrap_popup dialog_scrap_popup;
+
     public Productdetail_page_Activity() {
         //productList = new Product();
     }
@@ -44,6 +52,9 @@ public class Productdetail_page_Activity extends AppCompatActivity {
         productImage = findViewById(R.id.productImageView);
         AppDatabase appDatabase = AppDatabase.getInstance(getApplicationContext());
         ProductDao productDao = appDatabase.productDao();
+        UserDatabase userDatabase = UserDatabase.getInstance(getApplicationContext());
+        ProductBookmarkDao productBookmarkDao = userDatabase.productBookmarkDao();
+
         productList = productDao.getAll();
         scrapBtn = findViewById(R.id.scrapBtn);
         productPageBtn = findViewById(R.id.productPageBtn);
@@ -59,37 +70,42 @@ public class Productdetail_page_Activity extends AppCompatActivity {
         Intent intent = getIntent();
         int productId = intent.getIntExtra("id", 0);
         ProductWithBrandName matchingProduct = productList.get(productId - 1); // 배열 인덱스로 상품 찾기
-        if(productId != matchingProduct.id) { // 배열 인덱스로 찾았을 때 id 값이 일치하지 않을 때
+        ProductBookmark productBookmark = productBookmarkDao.findByProductId(productId);
+        if (productId != matchingProduct.id) { // 배열 인덱스로 찾았을 때 id 값이 일치하지 않을 때
             for (ProductWithBrandName product : productList) {
-                if (product.id == productId) matchingProduct = product; // Fragment_market_page_Activity에서 전달받은 id 값과 일치하는 상품 찾기
+                if (product.id == productId)
+                    matchingProduct = product; // Fragment_market_page_Activity에서 전달받은 id 값과 일치하는 상품 찾기
             }
         }
         Glide.with(this).load(matchingProduct.photoURL).into(productImage);
         productImage.setColorFilter(Color.parseColor("#f1f3f4"), PorterDuff.Mode.DST_OVER);
-        productNameField.setText("["+matchingProduct.brandName+"] "+matchingProduct.name); // 브랜드명, 상품명
+        productNameField.setText("[" + matchingProduct.brandName + "] " + matchingProduct.name); // 브랜드명, 상품명
         //가격
         if (matchingProduct.price == -1) priceField.setText("품절");
         else {  //가격 출력
-            int thwon =matchingProduct.price/1000;
-            int onewon=matchingProduct.price%1000;
+            int thwon = matchingProduct.price / 1000;
+            int onewon = matchingProduct.price % 1000;
             if (onewon == 0) {
                 priceField.setText(thwon + ",000 원");
             } else {
-                priceField.setText(thwon+","+onewon+" 원");
+                priceField.setText(thwon + "," + onewon + " 원");
             }
         }
 
-        String image = matchingProduct.photoURL;
-        String brand = matchingProduct.brandName;
-        String product = matchingProduct.name;
-        String price = Integer.toString(matchingProduct.price) ;
-        String memo=matchingProduct.memo;
+        image = matchingProduct.photoURL;
+        brand = matchingProduct.brandName;
+        product = matchingProduct.name;
+        price = Integer.toString(matchingProduct.price);
+        memo = "";
+        if (productBookmark != null) {
+            memo = productBookmark.memo;
+        }
 
         // 스크랩 버튼 팝업창 띄우기
         scrapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog_scrap_popup = new Dialog_scrap_popup(Productdetail_page_Activity.this,productId, image, brand, product, price, memo);
+                dialog_scrap_popup = new Dialog_scrap_popup(Productdetail_page_Activity.this, productId, image, brand, product, price, memo);
                 dialog_scrap_popup.show();
             }
         });
@@ -114,7 +130,7 @@ public class Productdetail_page_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 marcketbtn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.mainGreen));
 
-                Intent intent=new Intent(Productdetail_page_Activity.this, HomeActivity.class);
+                Intent intent = new Intent(Productdetail_page_Activity.this, HomeActivity.class);
                 intent.putExtra("productdetailbtn", "marcket");
                 startActivity(intent);
             }
@@ -125,7 +141,7 @@ public class Productdetail_page_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 restaurantbtn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.mainGreen));
 
-                Intent intent=new Intent(Productdetail_page_Activity.this, HomeActivity.class);
+                Intent intent = new Intent(Productdetail_page_Activity.this, HomeActivity.class);
                 intent.putExtra("productdetailbtn", "restaurant");
                 startActivity(intent);
             }
@@ -136,7 +152,7 @@ public class Productdetail_page_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 scrapbtn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.mainGreen));
 
-                Intent intent=new Intent(Productdetail_page_Activity.this, HomeActivity.class);
+                Intent intent = new Intent(Productdetail_page_Activity.this, HomeActivity.class);
                 intent.putExtra("productdetailbtn", "scrap");
                 startActivity(intent);
             }

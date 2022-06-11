@@ -9,8 +9,18 @@ import java.util.List;
 @Dao
 public interface ProductDao {
 
-    @Query("select * from Product where id = :productId;")
-    Product findById(Integer productId);
+    @Query("select Product.id,\n" +
+            "       Product.name,\n" +
+            "       Product.category,\n" +
+            "       Brand.name as brandName,\n" +
+            "       Product.price,\n" +
+            "       Product.site_url as siteURL,\n" +
+            "       Product.photo_url as photoURL\n" +
+            "from Product,\n" +
+            "     Brand\n" +
+            "where Product.brand_id = Brand.id \n" +
+            "   and Product.id = :productId;")
+    ProductWithBrandName findById(Integer productId);
 
     @Query("select Product.id,\n" +
             "       Product.name,\n" +
