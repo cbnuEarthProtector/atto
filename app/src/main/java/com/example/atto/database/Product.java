@@ -31,12 +31,6 @@ public class Product {
     @ColumnInfo(name = "photo_url")
     public String photoURL;
 
-    @ColumnInfo(name = "is_bookmarked")
-    public Integer isBookmarked;
-
-    @ColumnInfo(name = "memo")
-    public String memo;
-
     @Override
     public String toString() {
         return "Product{" +
@@ -47,8 +41,6 @@ public class Product {
                 ", price=" + price +
                 ", siteURL='" + siteURL + '\'' +
                 ", photoURL='" + photoURL + '\'' +
-                ", isBookmarked=" + isBookmarked +
-                ", memo='" + memo + '\'' +
                 '}';
     }
 }
