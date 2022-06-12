@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,8 @@ public class Fragment_marcket_brand extends Fragment {
 
         List<Brand> brandList = brandDao.getAll();
 
+        Log.v("brandList 크기", Integer.toString(brandList.size()));
+
         printBrandsToView(fv, brandList);
     }
 
@@ -49,7 +52,9 @@ public class Fragment_marcket_brand extends Fragment {
 
         lineartable.removeAllViews();
         LinearLayout horlinear = new LinearLayout(getActivity().getApplicationContext());
-        for (Brand brand : brandList) {
+        for (int i=0; i<brandList.size(); i++) {
+            Brand brand = brandList.get(i);
+
             //브랜드 정보 vertical layout으로 출력
             LinearLayout linearLayout = new LinearLayout(getActivity().getApplicationContext());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -69,16 +74,16 @@ public class Fragment_marcket_brand extends Fragment {
 
             //브랜드 이미지 출력
             ImageView imageView = new ImageView(getActivity().getApplicationContext());
-            if(brandList.indexOf(brand)==0){
+            if (brandList.indexOf(brand) == 0) {
                 imageView.setImageResource(R.drawable.tone_28);
-            }else if(brandList.indexOf(brand)==1){
+            } else if (brandList.indexOf(brand) == 1) {
                 imageView.setImageResource(R.drawable.dr_noah);
             } else if (brandList.indexOf(brand) == 2) {
                 imageView.setImageResource(R.drawable.nature_store);
             } else {
                 imageView.setImageResource(R.drawable.dog);
             }
-            ViewGroup.LayoutParams imgparams=new ViewGroup.LayoutParams(200, 200);
+            ViewGroup.LayoutParams imgparams = new ViewGroup.LayoutParams(200, 200);
             imageView.setLayoutParams(imgparams);
             imageView.setBackgroundResource(R.drawable.imgview_border);
 
@@ -92,15 +97,20 @@ public class Fragment_marcket_brand extends Fragment {
             textView.setTextSize(14);
             textView.setPadding(10, 20, 0, 0);  //패딩
 
+
             linearLayout.addView(textView);
 
             //한 줄에 상품 세 개씩 출력
-            if (brand.id % 3 == 0) {
+            if (i % 3 == 0) {
                 horlinear = new LinearLayout(getActivity().getApplicationContext());
+                horlinear.setOrientation(LinearLayout.HORIZONTAL);
                 lineartable.addView(horlinear);
+
+                Log.v("first brand", brand.name + " " + horlinear.toString());
 
                 horlinear.addView(linearLayout);
             } else {
+                Log.v("brand", brand.name + " " + horlinear.toString());
                 horlinear.addView(linearLayout);
             }
         }
