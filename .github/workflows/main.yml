@@ -14,9 +14,6 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
-      - name: check commit message
-        run: echo ${{ github.event.head_commit.message }}
-
       - name: Checkout
         uses: actions/checkout@v2
         
