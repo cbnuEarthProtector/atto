@@ -188,6 +188,8 @@ public class Fragment_marcket_category extends Fragment {
                 }
             });
             chooseCategoryButtons.addView(button);
+
+            if(i==0) prevChooseBtn = button;
         }
 
         return fv;

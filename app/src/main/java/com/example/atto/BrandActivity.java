@@ -193,6 +193,8 @@ public class BrandActivity extends AppCompatActivity {
                 }
             });
             chooseCategoryButtons.addView(button);
+
+            if(i==0) prevChooseBtn = button;
         }
 
         //뒤로가기 버튼 ->브랜드 페이지로
