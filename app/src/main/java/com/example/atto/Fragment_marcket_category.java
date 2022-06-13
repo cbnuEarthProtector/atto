@@ -35,6 +35,8 @@ public class Fragment_marcket_category extends Fragment {
 
     static Button prevChooseBtn = null;
 
+    Button[] buttons;
+
     public Fragment_marcket_category() {
 
     }
@@ -137,6 +139,7 @@ public class Fragment_marcket_category extends Fragment {
 
         Resources res = getResources();
         String[] categories = res.getStringArray(R.array.category);
+        buttons = new Button[categories.length];
 
         Spinner spinner = (Spinner) fv.findViewById(R.id.categorySpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
@@ -148,6 +151,10 @@ public class Fragment_marcket_category extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 printAllProductByCategory(fv, categories[i]);
+                if (prevChooseBtn != null)
+                    prevChooseBtn.setBackgroundResource(R.drawable.roundbutton);
+                buttons[i].setBackgroundResource(R.drawable.selected_roundbutton);
+                prevChooseBtn = buttons[i];
             }
 
             @Override
@@ -188,6 +195,7 @@ public class Fragment_marcket_category extends Fragment {
                 }
             });
             chooseCategoryButtons.addView(button);
+            buttons[i] = button;
 
             if(i==0) prevChooseBtn = button;
         }

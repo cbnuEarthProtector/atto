@@ -1,8 +1,5 @@
 package com.example.atto;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -21,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
 import com.example.atto.database.AppDatabase;
 import com.example.atto.database.BrandDao;
@@ -36,6 +35,8 @@ public class BrandActivity extends AppCompatActivity {
     private LinearLayout lineartable;
 
     static Button prevChooseBtn = null;
+
+    Button[] buttons;
 
     ImageButton backbtn;
 
@@ -144,6 +145,7 @@ public class BrandActivity extends AppCompatActivity {
 
         Resources res = getResources();
         String[] categories = res.getStringArray(R.array.category);
+        buttons = new Button[categories.length];
 
         Spinner spinner = (Spinner) findViewById(R.id.categorySpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -155,6 +157,10 @@ public class BrandActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 printAllProductByBrandIdAndCategory(categories[i]);
+                if (prevChooseBtn != null)
+                    prevChooseBtn.setBackgroundResource(R.drawable.roundbutton);
+                buttons[i].setBackgroundResource(R.drawable.selected_roundbutton);
+                prevChooseBtn = buttons[i];
             }
 
             @Override
@@ -193,6 +199,7 @@ public class BrandActivity extends AppCompatActivity {
                 }
             });
             chooseCategoryButtons.addView(button);
+            buttons[i] = button;
 
             if(i==0) prevChooseBtn = button;
         }
